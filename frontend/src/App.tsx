@@ -2,9 +2,13 @@ import { useState } from 'react'
 import { clear, execute } from './api'
 import UsersTable from './components/UsersTable'
 import type { User } from './types/User'
+import Pagination from './components/Pagination'
+
+const PAGE_SIZE = 10
 
 export default function App() {
   const [users, setUsers] = useState<User[]>([])
+  const [page, setPage] = useState(1)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -14,6 +18,7 @@ export default function App() {
       setError(null)
       const data = await execute()
       setUsers(data)
+      setPage(1)
     } catch (err) {
       setError('Failed to fetch users')
     } finally {
@@ -27,12 +32,16 @@ export default function App() {
       setError(null)
       const data = await clear()
       setUsers(data)
+      setPage(1)
     } catch (err) {
       setError('Failed to clear data')
     } finally {
       setLoading(false)
     }
   }
+
+  const start = (page - 1) * PAGE_SIZE
+  const paginated = users.slice(start, start + PAGE_SIZE)
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
@@ -60,7 +69,16 @@ export default function App() {
 
         {loading && <p className="mb-4 text-gray-600">Loading...</p>}
 
-        <UsersTable users={users} />
+        <UsersTable users={paginated} />
+
+        {users.length > PAGE_SIZE && (
+          <Pagination
+            page={page}
+            total={users.length}
+            pageSize={PAGE_SIZE}
+            onPageChange={setPage}
+          />
+        )}
       </div>
     </div>
   )
