@@ -15,7 +15,7 @@ export async function sendDataToN8N(data: User[]): Promise<ResultUsers> {
       users: data,
     }
   } catch (error) {
-    throw new Error('Failed to send data to N8N', error)
+    throw new Error(`Failed to send data to N8N: ${error}`)
   }
 }
 
