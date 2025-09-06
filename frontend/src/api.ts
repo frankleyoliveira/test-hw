@@ -1,5 +1,7 @@
+const BASE_API_URL = 'https://test-hw-api.vercel.app'
+
 export async function execute() {
-  const res = await fetch('http://localhost:3000/api/execute', {
+  const res = await fetch(`${BASE_API_URL}/api/execute`, {
     method: 'POST',
   })
 
@@ -11,7 +13,7 @@ export async function execute() {
 }
 
 export async function clear() {
-  const res = await fetch('http://localhost:3000/api/clear', {
+  const res = await fetch(`${BASE_API_URL}/api/clear`, {
     method: 'POST',
   })
 
