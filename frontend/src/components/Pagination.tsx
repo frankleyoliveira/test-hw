@@ -14,11 +14,11 @@ export default function Pagination({
   const totalPages = Math.ceil(total / pageSize)
 
   return (
-    <div className="flex items-center justify-between mt-4">
+    <div className="flex items-center justify-center gap-4 mt-4">
       <button
         onClick={() => onPageChange(page - 1)}
         disabled={page === 1}
-        className="rounded-md bg-gray-200 px-3 py-1 disabled:opacity-50"
+        className="rounded-md bg-gray-200 hover:bg-gray-300 px-3 py-1 cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
       >
         Previous
       </button>
@@ -28,7 +28,7 @@ export default function Pagination({
       <button
         onClick={() => onPageChange(page + 1)}
         disabled={page === totalPages}
-        className="rounded-md bg-gray-200 px-3 py-1 disabled:opacity-50"
+        className="rounded-md bg-gray-200 hover:bg-gray-300 px-3 py-1 cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
       >
         Next
       </button>

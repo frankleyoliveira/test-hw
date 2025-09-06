@@ -44,25 +44,27 @@ export default function App() {
   const paginated = users.slice(start, start + PAGE_SIZE)
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
-      <div className="mx-auto max-w-3xl rounded-2xl bg-white p-6 shadow">
-        <h1 className="mb-6 text-2xl font-bold text-gray-800">User Manager</h1>
+    <div className="min-h-screen md:bg-gray-100 md:p-6">
+      <div className="mx-auto max-w-5xl md:rounded-2xl bg-white p-6 md:shadow">
+        <div className="flex max-sm:flex-col gap-4 justify-center sm:justify-between items-center mb-6">
+          <h1 className="text-2xl font-bold text-gray-800">Test H&W</h1>
 
-        <div className="mb-6 flex gap-4">
-          <button
-            onClick={handleExecute}
-            disabled={loading}
-            className="rounded-xl bg-blue-600 px-4 py-2 text-white shadow hover:bg-blue-700 disabled:opacity-50"
-          >
-            Execute
-          </button>
-          <button
-            onClick={handleClear}
-            disabled={loading}
-            className="rounded-xl bg-red-600 px-4 py-2 text-white shadow hover:bg-red-700 disabled:opacity-50"
-          >
-            Clear
-          </button>
+          <div className="flex gap-4">
+            <button
+              onClick={handleExecute}
+              disabled={loading}
+              className="rounded-xl bg-blue-600 px-4 py-2 text-white shadow hover:bg-blue-700 cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              Execute
+            </button>
+            <button
+              onClick={handleClear}
+              disabled={loading}
+              className="rounded-xl bg-red-600 px-4 py-2 text-white shadow hover:bg-red-700 cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              Clear
+            </button>
+          </div>
         </div>
 
         {error && <p className="mb-4 text-red-600">{error}</p>}
