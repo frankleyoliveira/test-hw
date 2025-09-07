@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { clear, execute } from './api'
+import { useEffect, useState } from 'react'
+import { clear, execute, getUsers } from './api'
 import UsersTable from './components/UsersTable'
 import type { User } from './types/User'
 import Pagination from './components/Pagination'
@@ -12,15 +12,28 @@ export default function App() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
+  useEffect(() => {
+    loadUsers()
+  }, [])
+
+  async function loadUsers() {
+    try {
+      const data = await getUsers()
+      setUsers(data)
+    } catch (err) {
+      setError('Failed to fetch users')
+    }
+  }
+
   async function handleExecute() {
     try {
       setLoading(true)
       setError(null)
-      const data = await execute()
-      setUsers(data)
+      await execute()
+      await loadUsers()
       setPage(1)
     } catch (err) {
-      setError('Failed to fetch users')
+      setError('Failed to execute')
     } finally {
       setLoading(false)
     }
@@ -30,8 +43,8 @@ export default function App() {
     try {
       setLoading(true)
       setError(null)
-      const data = await clear()
-      setUsers(data)
+      await clear()
+      setUsers([])
       setPage(1)
     } catch (err) {
       setError('Failed to clear data')
@@ -68,7 +81,6 @@ export default function App() {
         </div>
 
         {error && <p className="mb-4 text-red-600">{error}</p>}
-
         {loading && <p className="mb-4 text-gray-600">Loading...</p>}
 
         <UsersTable users={paginated} />
