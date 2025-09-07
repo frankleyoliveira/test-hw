@@ -1,11 +1,29 @@
 import { Request, Response } from 'express'
 import { decryptData } from '../services/decryptService'
-import { sendDataToN8N, clearUsersInN8N } from '../services/n8nService'
+import {
+  sendDataToN8N,
+  clearUsersInN8N,
+  getDataFromN8N,
+} from '../services/n8nService'
 import axios from 'axios'
 import { SecureEndpointResponse } from '../types'
 
 const SECURE_ENDPOINT =
   'https://n8n-apps.nlabshealth.com/webhook/data-5dYbrVSlMVJxfmco'
+
+export async function getAllUsers(req: Request, res: Response) {
+  try {
+    const users = await getDataFromN8N()
+
+    res.json({
+      success: true,
+      users,
+    })
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ error: 'Error getting users' })
+  }
+}
 
 export async function executeHandler(req: Request, res: Response) {
   try {
