@@ -1,4 +1,5 @@
 import type { User } from '../types/User'
+import { formatPhone } from '../utils'
 
 export default function UsersTable({ users }: { users: User[] }) {
   return (
@@ -28,7 +29,7 @@ export default function UsersTable({ users }: { users: User[] }) {
                 <td className="px-4 py-2">#{u.id}</td>
                 <td className="px-4 py-2">{u.nome}</td>
                 <td className="px-4 py-2">{u.email}</td>
-                <td className="px-4 py-2">{u.phone}</td>
+                <td className="px-4 py-2">{formatPhone(u.phone)}</td>
               </tr>
             ))
           )}
