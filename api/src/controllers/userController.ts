@@ -35,7 +35,9 @@ export async function executeHandler(req: Request, res: Response) {
       throw new Error('Error on secure endpoint response: success = false')
     }
 
-    const decrypted = decryptData(data.encrypted)
+    const { encrypted, secretKey } = data
+
+    const decrypted = decryptData(encrypted, secretKey)
 
     const result = await sendDataToN8N(decrypted.users)
 

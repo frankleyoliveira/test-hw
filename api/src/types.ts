@@ -15,6 +15,7 @@ export interface SecureEndpointResponse {
   success: boolean
   data: {
     encrypted: EncryptedData
+    secretKey: string
   }
 }
 
