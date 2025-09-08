@@ -3,6 +3,7 @@ import { clear, execute, getUsers } from './api'
 import UsersTable from './components/UsersTable'
 import type { User } from './types/User'
 import Pagination from './components/Pagination'
+import Spinner from './components/Spinner'
 
 const PAGE_SIZE = 10
 
@@ -112,8 +113,9 @@ export default function App() {
           </div>
         </div>
 
+        {loading && <Spinner />}
+
         {error && <p className="mb-4 text-red-600">{error}</p>}
-        {loading && <p className="mb-4 text-gray-600">Loading...</p>}
 
         <UsersTable users={paginated} />
 
