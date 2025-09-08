@@ -39,7 +39,7 @@ export async function executeHandler(req: Request, res: Response) {
 
     const decrypted = decryptData(encrypted, secretKey)
 
-    const result = await sendDataToN8N(decrypted.users)
+    const result = await sendDataToN8N(decrypted)
 
     res.json(result)
   } catch (error) {
